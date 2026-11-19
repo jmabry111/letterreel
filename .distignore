@@ -1,0 +1,7 @@
+.git
+.gitignore
+.distignore
+.wordpress-org
+README.md
+bin
+dist

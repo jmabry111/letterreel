@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "typemotion/letters",
+	"version": "1.0.0",
+	"title": "TypeMotion Letters",
+	"category": "design",
+	"icon": "format-image",
+	"description": "A big word or title with a different photo showing through each letter.",
+	"keywords": [ "photo", "letters", "hero", "heading", "animated", "image text" ],
+	"textdomain": "typemotion",
+	"attributes": {
+		"text": { "type": "string", "default": "Showtime" },
+		"tagline": { "type": "string", "default": "" },
+		"level": { "type": "number", "default": 2 },
+		"textAlign": { "type": "string", "default": "center" },
+		"photos": { "type": "array", "default": [], "items": { "type": "object" } },
+		"fontSource": { "type": "string", "enum": [ "bundled", "theme" ], "default": "bundled" },
+		"maxSize": { "type": "number", "default": 208 },
+		"outline": { "type": "boolean", "default": true },
+		"outlineWidth": { "type": "number", "default": 1.5 },
+		"backdropColor": { "type": "string", "default": "#000000" },
+		"animate": { "type": "boolean", "default": true }
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"align": [ "wide", "full" ],
+		"color": { "text": true, "background": true, "link": false },
+		"spacing": { "margin": true, "padding": true }
+	},
+	"example": {
+		"attributes": { "text": "Showtime", "tagline": "Now playing", "animate": false }
+	},
+	"editorScript": "file:./index.js",
+	"viewScript": "file:./view.js",
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}
