@@ -57,7 +57,7 @@ Not for this block: screen readers read the word, and the photos are decoration 
 
 == Screenshots ==
 
-1. A photo-filled word on a dark hero, with an outline and a line underneath.
+1. A photo-filled word on a dark hero: the letters rise in one after another, then the line underneath fades in.
 2. Editing: the word, the line underneath, the heading level and the photos, each with its own focal point.
 3. On a phone every word still fits on one line: the bundled font, the theme's font without an outline, and no photos.
 

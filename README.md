@@ -4,6 +4,8 @@ A WordPress block that shows a different photo through each letter of a big word
 
 ![LetterReel banner](.wordpress-org/banner-1544x500.png)
 
+![The letters rising in, each filled with a different photo](.wordpress-org/screenshot-1.gif)
+
 - **Block:** `letterreel/letters` ("LetterReel Letters", Design category)
 - **Requires:** WordPress 6.5+, PHP 7.4+
 - **Licence:** GPL-2.0-or-later. The bundled Alfa Slab One font is SIL OFL 1.1 (`fonts/OFL.txt`).
