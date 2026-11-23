@@ -1,4 +1,4 @@
-=== TypeMotion ===
+=== LetterReel ===
 Contributors: jmabry111
 Tags: block, typography, image, hero, animation
 Requires at least: 6.5
@@ -12,7 +12,7 @@ A block that shows a different photo through each letter of a big word, with a g
 
 == Description ==
 
-TypeMotion adds one block, **TypeMotion Letters**: a big word or short title where each letter is filled with a photo from your Media Library. It is made for home-page heroes, event titles and section openers.
+LetterReel adds one block, **LetterReel Letters**: a big word or short title where each letter is filled with a photo from your Media Library. It is made for home-page heroes, event titles and section openers.
 
 * **Photos in the letters:** pick any number of photos. The letters take turns using them, and a photo that comes round again shows a different part of the picture.
 * **Focal points:** drag a dot on each photo to choose what shows inside the letters.
@@ -24,9 +24,9 @@ TypeMotion adds one block, **TypeMotion Letters**: a big word or short title whe
 
 == Installation ==
 
-1. Install TypeMotion from **Plugins > Add New**, or upload the `typemotion` folder to `/wp-content/plugins/`.
+1. Install LetterReel from **Plugins > Add New**, or upload the `jmabry111-letterreel` folder to `/wp-content/plugins/`.
 2. Activate it.
-3. In the block editor, add the **TypeMotion Letters** block (in the Design category, or search for "TypeMotion").
+3. In the block editor, add the **LetterReel Letters** block (in the Design category, or search for "LetterReel").
 4. In the block settings: type your word, click **Choose photos**, and drag each photo's focal point onto the subject.
 
 == Frequently Asked Questions ==

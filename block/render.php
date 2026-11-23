@@ -1,108 +1,108 @@
 <?php
 /**
- * Server-side render of the TypeMotion Letters block.
+ * Server-side render of the LetterReel Letters block.
  *
- * @package TypeMotion
+ * @package LetterReel
  *
  * @var array $attributes Block attributes.
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$typemotion_text = isset( $attributes['text'] ) ? trim( wp_strip_all_tags( (string) $attributes['text'] ) ) : '';
-if ( '' === $typemotion_text ) {
+$letterreel_text = isset( $attributes['text'] ) ? trim( wp_strip_all_tags( (string) $attributes['text'] ) ) : '';
+if ( '' === $letterreel_text ) {
 	return;
 }
 
-$typemotion_tagline = isset( $attributes['tagline'] ) ? trim( wp_strip_all_tags( (string) $attributes['tagline'] ) ) : '';
-$typemotion_level   = isset( $attributes['level'] ) ? (int) $attributes['level'] : 2;
-$typemotion_tag     = ( $typemotion_level >= 1 && $typemotion_level <= 6 ) ? 'h' . $typemotion_level : 'p';
-$typemotion_font    = ( isset( $attributes['fontSource'] ) && 'theme' === $attributes['fontSource'] ) ? 'theme' : 'bundled';
-$typemotion_max     = isset( $attributes['maxSize'] ) ? max( 16, min( 600, (float) $attributes['maxSize'] ) ) : 208;
-$typemotion_stroke  = isset( $attributes['outlineWidth'] ) ? max( 0.5, min( 6, (float) $attributes['outlineWidth'] ) ) : 1.5;
-$typemotion_outline = ! isset( $attributes['outline'] ) || (bool) $attributes['outline'];
-$typemotion_animate = ! isset( $attributes['animate'] ) || (bool) $attributes['animate'];
-$typemotion_align   = ( isset( $attributes['textAlign'] ) && in_array( $attributes['textAlign'], array( 'left', 'center', 'right' ), true ) ) ? $attributes['textAlign'] : 'center';
-$typemotion_back    = isset( $attributes['backdropColor'] ) ? sanitize_hex_color( $attributes['backdropColor'] ) : '';
-if ( ! $typemotion_back ) {
-	$typemotion_back = '#000000';
+$letterreel_tagline = isset( $attributes['tagline'] ) ? trim( wp_strip_all_tags( (string) $attributes['tagline'] ) ) : '';
+$letterreel_level   = isset( $attributes['level'] ) ? (int) $attributes['level'] : 2;
+$letterreel_tag     = ( $letterreel_level >= 1 && $letterreel_level <= 6 ) ? 'h' . $letterreel_level : 'p';
+$letterreel_font    = ( isset( $attributes['fontSource'] ) && 'theme' === $attributes['fontSource'] ) ? 'theme' : 'bundled';
+$letterreel_max     = isset( $attributes['maxSize'] ) ? max( 16, min( 600, (float) $attributes['maxSize'] ) ) : 208;
+$letterreel_stroke  = isset( $attributes['outlineWidth'] ) ? max( 0.5, min( 6, (float) $attributes['outlineWidth'] ) ) : 1.5;
+$letterreel_outline = ! isset( $attributes['outline'] ) || (bool) $attributes['outline'];
+$letterreel_animate = ! isset( $attributes['animate'] ) || (bool) $attributes['animate'];
+$letterreel_align   = ( isset( $attributes['textAlign'] ) && in_array( $attributes['textAlign'], array( 'left', 'center', 'right' ), true ) ) ? $attributes['textAlign'] : 'center';
+$letterreel_back    = isset( $attributes['backdropColor'] ) ? sanitize_hex_color( $attributes['backdropColor'] ) : '';
+if ( ! $letterreel_back ) {
+	$letterreel_back = '#000000';
 }
 
 // Photos: [{id, x, y}], x/y = focal point 0..1.
-$typemotion_photos = array();
+$letterreel_photos = array();
 if ( ! empty( $attributes['photos'] ) && is_array( $attributes['photos'] ) ) {
-	foreach ( $attributes['photos'] as $typemotion_p ) {
-		$typemotion_id  = isset( $typemotion_p['id'] ) ? absint( $typemotion_p['id'] ) : 0;
-		$typemotion_url = $typemotion_id ? typemotion_photo_url( $typemotion_id ) : '';
-		if ( '' === $typemotion_url ) {
+	foreach ( $attributes['photos'] as $letterreel_p ) {
+		$letterreel_id  = isset( $letterreel_p['id'] ) ? absint( $letterreel_p['id'] ) : 0;
+		$letterreel_url = $letterreel_id ? letterreel_photo_url( $letterreel_id ) : '';
+		if ( '' === $letterreel_url ) {
 			continue;
 		}
-		$typemotion_photos[] = array(
-			'url' => $typemotion_url,
-			'x'   => typemotion_unit( isset( $typemotion_p['x'] ) ? $typemotion_p['x'] : null, 0.5 ),
-			'y'   => typemotion_unit( isset( $typemotion_p['y'] ) ? $typemotion_p['y'] : null, 0.4 ),
+		$letterreel_photos[] = array(
+			'url' => $letterreel_url,
+			'x'   => letterreel_unit( isset( $letterreel_p['x'] ) ? $letterreel_p['x'] : null, 0.5 ),
+			'y'   => letterreel_unit( isset( $letterreel_p['y'] ) ? $letterreel_p['y'] : null, 0.4 ),
 		);
 	}
 }
-$typemotion_count = count( $typemotion_photos );
+$letterreel_count = count( $letterreel_photos );
 
-$typemotion_chars = typemotion_chars( $typemotion_text );
-$typemotion_html  = '';
-$typemotion_i     = 0;
-foreach ( $typemotion_chars as $typemotion_c ) {
-	if ( ' ' === $typemotion_c ) {
-		$typemotion_html .= '<span class="typemotion__space"> </span>';
+$letterreel_chars = letterreel_chars( $letterreel_text );
+$letterreel_html  = '';
+$letterreel_i     = 0;
+foreach ( $letterreel_chars as $letterreel_c ) {
+	if ( ' ' === $letterreel_c ) {
+		$letterreel_html .= '<span class="letterreel__space"> </span>';
 		continue;
 	}
-	$typemotion_style = '--tm-i:' . $typemotion_i . ';';
-	if ( $typemotion_count ) {
-		$typemotion_p = $typemotion_photos[ $typemotion_i % $typemotion_count ];
+	$letterreel_style = '--lr-i:' . $letterreel_i . ';';
+	if ( $letterreel_count ) {
+		$letterreel_p = $letterreel_photos[ $letterreel_i % $letterreel_count ];
 		// The 2nd, 3rd... use of a photo shows a different part of it.
-		$typemotion_x = $typemotion_p['x'];
-		for ( $typemotion_k = intdiv( $typemotion_i, $typemotion_count ); $typemotion_k > 0; $typemotion_k-- ) {
-			$typemotion_x = $typemotion_x < 0.5 ? $typemotion_x + 0.2 : $typemotion_x - 0.2;
+		$letterreel_x = $letterreel_p['x'];
+		for ( $letterreel_k = intdiv( $letterreel_i, $letterreel_count ); $letterreel_k > 0; $letterreel_k-- ) {
+			$letterreel_x = $letterreel_x < 0.5 ? $letterreel_x + 0.2 : $letterreel_x - 0.2;
 		}
-		$typemotion_style .= sprintf(
-			'--tm-x:%1$s%%;--tm-y:%2$s%%;background-image:url("%3$s");',
-			round( $typemotion_x * 100 ),
-			round( $typemotion_p['y'] * 100 ),
-			esc_url( $typemotion_p['url'] )
+		$letterreel_style .= sprintf(
+			'--lr-x:%1$s%%;--lr-y:%2$s%%;background-image:url("%3$s");',
+			round( $letterreel_x * 100 ),
+			round( $letterreel_p['y'] * 100 ),
+			esc_url( $letterreel_p['url'] )
 		);
 	}
-	$typemotion_html .= '<span class="typemotion__letter" style="' . esc_attr( $typemotion_style ) . '">' . esc_html( $typemotion_c ) . '</span>';
-	++$typemotion_i;
+	$letterreel_html .= '<span class="letterreel__letter" style="' . esc_attr( $letterreel_style ) . '">' . esc_html( $letterreel_c ) . '</span>';
+	++$letterreel_i;
 }
 
-$typemotion_classes = array( 'has-text-align-' . $typemotion_align );
-if ( $typemotion_count ) {
-	$typemotion_classes[] = 'has-photos';
+$letterreel_classes = array( 'has-text-align-' . $letterreel_align );
+if ( $letterreel_count ) {
+	$letterreel_classes[] = 'has-photos';
 }
-if ( $typemotion_outline ) {
-	$typemotion_classes[] = 'has-outline';
+if ( $letterreel_outline ) {
+	$letterreel_classes[] = 'has-outline';
 }
-if ( $typemotion_animate ) {
-	$typemotion_classes[] = 'has-animation';
+if ( $letterreel_animate ) {
+	$letterreel_classes[] = 'has-animation';
 }
 
-$typemotion_wrapper = get_block_wrapper_attributes(
+$letterreel_wrapper = get_block_wrapper_attributes(
 	array(
-		'class'              => implode( ' ', $typemotion_classes ),
+		'class'              => implode( ' ', $letterreel_classes ),
 		'style'              => sprintf(
-			'--typemotion-w:%1$s;--typemotion-max:%2$spx;--typemotion-stroke:%3$spx;--typemotion-backdrop:%4$s;',
-			number_format( typemotion_word_width( $typemotion_chars, $typemotion_font ), 3, '.', '' ),
-			$typemotion_max,
-			$typemotion_stroke,
-			$typemotion_back
+			'--letterreel-w:%1$s;--letterreel-max:%2$spx;--letterreel-stroke:%3$spx;--letterreel-backdrop:%4$s;',
+			number_format( letterreel_word_width( $letterreel_chars, $letterreel_font ), 3, '.', '' ),
+			$letterreel_max,
+			$letterreel_stroke,
+			$letterreel_back
 		),
-		'data-typemotion-font' => $typemotion_font,
+		'data-letterreel-font' => $letterreel_font,
 	)
 );
 
 printf(
-	'<div %1$s><%2$s class="typemotion__word"><span class="typemotion__sr">%3$s</span><span class="typemotion__line" aria-hidden="true">%4$s</span></%2$s>%5$s</div>',
-	$typemotion_wrapper, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by get_block_wrapper_attributes().
-	tag_escape( $typemotion_tag ),
-	esc_html( $typemotion_text ),
-	$typemotion_html, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above from escaped parts.
-	'' !== $typemotion_tagline ? '<p class="typemotion__tagline">' . esc_html( $typemotion_tagline ) . '</p>' : ''
+	'<div %1$s><%2$s class="letterreel__word"><span class="letterreel__sr">%3$s</span><span class="letterreel__line" aria-hidden="true">%4$s</span></%2$s>%5$s</div>',
+	$letterreel_wrapper, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by get_block_wrapper_attributes().
+	tag_escape( $letterreel_tag ),
+	esc_html( $letterreel_text ),
+	$letterreel_html, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above from escaped parts.
+	'' !== $letterreel_tagline ? '<p class="letterreel__tagline">' . esc_html( $letterreel_tagline ) . '</p>' : ''
 );

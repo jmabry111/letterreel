@@ -1,14 +1,14 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "typemotion/letters",
+	"name": "letterreel/letters",
 	"version": "1.0.0",
-	"title": "TypeMotion Letters",
+	"title": "LetterReel Letters",
 	"category": "design",
 	"icon": "format-image",
 	"description": "A big word or title with a different photo showing through each letter.",
 	"keywords": [ "photo", "letters", "hero", "heading", "animated", "image text" ],
-	"textdomain": "typemotion",
+	"textdomain": "jmabry111-letterreel",
 	"attributes": {
 		"text": { "type": "string", "default": "Showtime" },
 		"tagline": { "type": "string", "default": "" },

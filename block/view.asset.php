@@ -2,7 +2,7 @@
 /**
  * Script dependencies for view.js (hand-written, no build step).
  *
- * @package TypeMotion
+ * @package LetterReel
  */
 
 return array(

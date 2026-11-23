@@ -2,7 +2,7 @@
 /**
  * Helpers used by the block's server-side render.
  *
- * @package TypeMotion
+ * @package LetterReel
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * @param string $text Text to split.
  * @return string[]
  */
-function typemotion_chars( $text ) {
+function letterreel_chars( $text ) {
 	$chars = preg_split( '//u', (string) $text, -1, PREG_SPLIT_NO_EMPTY );
 	return is_array( $chars ) ? $chars : array();
 }
@@ -27,13 +27,13 @@ function typemotion_chars( $text ) {
  * @param string   $font_source 'bundled' or 'theme'.
  * @return float
  */
-function typemotion_word_width( $chars, $font_source ) {
+function letterreel_word_width( $chars, $font_source ) {
 	static $widths = null;
 	if ( 'bundled' !== $font_source ) {
 		return max( 1.0, count( $chars ) * 0.6 );
 	}
 	if ( null === $widths ) {
-		$widths = include TYPEMOTION_DIR . 'includes/font-widths.php';
+		$widths = include LETTERREEL_DIR . 'includes/font-widths.php';
 	}
 	$total = 0;
 	foreach ( $chars as $char ) {
@@ -49,7 +49,7 @@ function typemotion_word_width( $chars, $font_source ) {
  * @param int $attachment_id Attachment ID.
  * @return string Empty string when the image does not exist.
  */
-function typemotion_photo_url( $attachment_id ) {
+function letterreel_photo_url( $attachment_id ) {
 	foreach ( array( '1536x1536', 'large', 'full' ) as $size ) {
 		$src = wp_get_attachment_image_src( $attachment_id, $size );
 		if ( $src && ! empty( $src[0] ) ) {
@@ -66,7 +66,7 @@ function typemotion_photo_url( $attachment_id ) {
  * @param float $fallback Used when the value is missing.
  * @return float
  */
-function typemotion_unit( $value, $fallback ) {
+function letterreel_unit( $value, $fallback ) {
 	if ( ! is_numeric( $value ) ) {
 		return $fallback;
 	}

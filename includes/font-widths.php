@@ -3,7 +3,7 @@
  * Advance widths of the bundled Alfa Slab One font, in 1/1000 em, keyed by Unicode code point.
  * Generated from fonts/alfa-slab-one-*.woff2. Used to size the word before any JavaScript runs.
  *
- * @package TypeMotion
+ * @package LetterReel
  */
 
 defined( 'ABSPATH' ) || exit;

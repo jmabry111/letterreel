@@ -1,5 +1,5 @@
 /**
- * TypeMotion Letters block: editor.
+ * LetterReel Letters block: editor.
  *
  * Hand-written for the WordPress globals (no build step). The front end is rendered in PHP
  * (render.php); the editor draws the same markup so changes show up instantly.
@@ -17,7 +17,7 @@
 	var be = wp.blockEditor;
 	var c = wp.components;
 	var useSelect = wp.data.useSelect;
-	var metadata = { name: 'typemotion/letters' };
+	var metadata = { name: 'letterreel/letters' };
 
 	function chars( text ) {
 		return Array.from( text || '' );
@@ -82,7 +82,7 @@
 					if ( cancelled ) {
 						return;
 					}
-					var line = node.querySelector( '.typemotion__line' );
+					var line = node.querySelector( '.letterreel__line' );
 					if ( ! line ) {
 						return;
 					}
@@ -156,21 +156,21 @@
 		var li = 0;
 		chars( a.text ).forEach( function ( ch, k ) {
 			if ( ch === ' ' ) {
-				letters.push( el( 'span', { key: 's' + k, className: 'typemotion__space' }, ' ' ) );
+				letters.push( el( 'span', { key: 's' + k, className: 'letterreel__space' }, ' ' ) );
 				return;
 			}
-			var style = { '--tm-i': li };
+			var style = { '--lr-i': li };
 			if ( usable.length ) {
 				var p = usable[ li % usable.length ];
 				var x = p.x;
 				for ( var r = Math.floor( li / usable.length ); r > 0; r-- ) {
 					x = x < 0.5 ? x + 0.2 : x - 0.2;
 				}
-				style[ '--tm-x' ] = Math.round( x * 100 ) + '%';
-				style[ '--tm-y' ] = Math.round( p.y * 100 ) + '%';
+				style[ '--lr-x' ] = Math.round( x * 100 ) + '%';
+				style[ '--lr-y' ] = Math.round( p.y * 100 ) + '%';
 				style.backgroundImage = 'url("' + p.url + '")';
 			}
-			letters.push( el( 'span', { key: k + ch, className: 'typemotion__letter', style: style }, ch ) );
+			letters.push( el( 'span', { key: k + ch, className: 'letterreel__letter', style: style }, ch ) );
 			li++;
 		} );
 
@@ -190,12 +190,12 @@
 		var blockProps = be.useBlockProps( {
 			ref: ref,
 			className: classes.join( ' ' ),
-			'data-typemotion-font': a.fontSource === 'theme' ? 'theme' : 'bundled',
+			'data-letterreel-font': a.fontSource === 'theme' ? 'theme' : 'bundled',
 			style: {
-				'--typemotion-w': width || estimate,
-				'--typemotion-max': ( a.maxSize || 208 ) + 'px',
-				'--typemotion-stroke': ( a.outlineWidth || 1.5 ) + 'px',
-				'--typemotion-backdrop': a.backdropColor || '#000000',
+				'--letterreel-w': width || estimate,
+				'--letterreel-max': ( a.maxSize || 208 ) + 'px',
+				'--letterreel-stroke': ( a.outlineWidth || 1.5 ) + 'px',
+				'--letterreel-backdrop': a.backdropColor || '#000000',
 			},
 		} );
 
@@ -205,12 +205,12 @@
 			a.text
 				? el(
 						Tag,
-						{ className: 'typemotion__word' },
-						el( 'span', { className: 'typemotion__sr' }, a.text ),
-						el( 'span', { className: 'typemotion__line', 'aria-hidden': 'true' }, letters )
+						{ className: 'letterreel__word' },
+						el( 'span', { className: 'letterreel__sr' }, a.text ),
+						el( 'span', { className: 'letterreel__line', 'aria-hidden': 'true' }, letters )
 				  )
-				: el( 'p', null, __( 'Type a word in the block settings.', 'typemotion' ) ),
-			a.tagline ? el( 'p', { className: 'typemotion__tagline' }, a.tagline ) : null
+				: el( 'p', null, __( 'Type a word in the block settings.', 'jmabry111-letterreel' ) ),
+			a.tagline ? el( 'p', { className: 'letterreel__tagline' }, a.tagline ) : null
 		);
 
 		// ---- sidebar ----
@@ -218,11 +218,11 @@
 			var thumb = photoUrl( media[ i ], 'thumb' );
 			return el(
 				'div',
-				{ key: p.id + '-' + i, className: 'typemotion-photo-row', style: { borderTop: '1px solid #ddd', padding: '12px 0' } },
-				el( 'p', { style: { margin: '0 0 6px', fontWeight: 600 } }, sprintf( /* translators: %d: photo number */ __( 'Photo %d', 'typemotion' ), i + 1 ) ),
+				{ key: p.id + '-' + i, className: 'letterreel-photo-row', style: { borderTop: '1px solid #ddd', padding: '12px 0' } },
+				el( 'p', { style: { margin: '0 0 6px', fontWeight: 600 } }, sprintf( /* translators: %d: photo number */ __( 'Photo %d', 'jmabry111-letterreel' ), i + 1 ) ),
 				thumb
 					? el( c.FocalPointPicker, {
-							label: __( 'Drag the dot onto the part that should show in the letters', 'typemotion' ),
+							label: __( 'Drag the dot onto the part that should show in the letters', 'jmabry111-letterreel' ),
 							url: thumb,
 							value: { x: clamp01( p.x, 0.5 ), y: clamp01( p.y, 0.4 ) },
 							onChange: function ( v ) {
@@ -233,16 +233,16 @@
 				el(
 					c.Flex,
 					{ justify: 'flex-start' },
-					el( c.Button, { variant: 'secondary', size: 'small', disabled: i === 0, onClick: function () { movePhoto( i, -1 ); } }, __( 'Up', 'typemotion' ) ),
-					el( c.Button, { variant: 'secondary', size: 'small', disabled: i === photos.length - 1, onClick: function () { movePhoto( i, 1 ); } }, __( 'Down', 'typemotion' ) ),
-					el( c.Button, { variant: 'link', isDestructive: true, onClick: function () { removePhoto( i ); } }, __( 'Remove', 'typemotion' ) )
+					el( c.Button, { variant: 'secondary', size: 'small', disabled: i === 0, onClick: function () { movePhoto( i, -1 ); } }, __( 'Up', 'jmabry111-letterreel' ) ),
+					el( c.Button, { variant: 'secondary', size: 'small', disabled: i === photos.length - 1, onClick: function () { movePhoto( i, 1 ); } }, __( 'Down', 'jmabry111-letterreel' ) ),
+					el( c.Button, { variant: 'link', isDestructive: true, onClick: function () { removePhoto( i ); } }, __( 'Remove', 'jmabry111-letterreel' ) )
 				)
 			);
 		} );
 
-		var levelOptions = [ { label: __( 'Paragraph (not a heading)', 'typemotion' ), value: '0' } ];
+		var levelOptions = [ { label: __( 'Paragraph (not a heading)', 'jmabry111-letterreel' ), value: '0' } ];
 		for ( var h = 1; h <= 6; h++ ) {
-			levelOptions.push( { label: sprintf( /* translators: %d: heading level */ __( 'Heading %d', 'typemotion' ), h ), value: String( h ) } );
+			levelOptions.push( { label: sprintf( /* translators: %d: heading level */ __( 'Heading %d', 'jmabry111-letterreel' ), h ), value: String( h ) } );
 		}
 
 		return el(
@@ -263,12 +263,12 @@
 				null,
 				el(
 					c.PanelBody,
-					{ title: __( 'Text', 'typemotion' ), initialOpen: true },
+					{ title: __( 'Text', 'jmabry111-letterreel' ), initialOpen: true },
 					el( c.TextControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Big word', 'typemotion' ),
+						label: __( 'Big word', 'jmabry111-letterreel' ),
 						value: a.text,
-						help: __( 'Short works best: one word or a title of about 10 letters.', 'typemotion' ),
+						help: __( 'Short works best: one word or a title of about 10 letters.', 'jmabry111-letterreel' ),
 						onChange: function ( v ) {
 							set( { text: v } );
 						},
@@ -276,9 +276,9 @@
 					el( 'div', { style: { height: 16 } } ),
 					el( c.TextControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Line underneath', 'typemotion' ),
+						label: __( 'Line underneath', 'jmabry111-letterreel' ),
 						value: a.tagline,
-						help: __( 'Optional. Leave empty to hide it.', 'typemotion' ),
+						help: __( 'Optional. Leave empty to hide it.', 'jmabry111-letterreel' ),
 						onChange: function ( v ) {
 							set( { tagline: v } );
 						},
@@ -286,10 +286,10 @@
 					el( 'div', { style: { height: 16 } } ),
 					el( c.SelectControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Heading level', 'typemotion' ),
+						label: __( 'Heading level', 'jmabry111-letterreel' ),
 						value: String( level ),
 						options: levelOptions,
-						help: __( 'Use Heading 1 only for the main title of the page.', 'typemotion' ),
+						help: __( 'Use Heading 1 only for the main title of the page.', 'jmabry111-letterreel' ),
 						onChange: function ( v ) {
 							set( { level: parseInt( v, 10 ) } );
 						},
@@ -297,8 +297,8 @@
 				),
 				el(
 					c.PanelBody,
-					{ title: sprintf( /* translators: %d: number of photos */ __( 'Photos (%d)', 'typemotion' ), photos.length ), initialOpen: true },
-					el( 'p', null, __( 'The letters take turns using these photos, in this order. Bright photos with the subject near the middle work best.', 'typemotion' ) ),
+					{ title: sprintf( /* translators: %d: number of photos */ __( 'Photos (%d)', 'jmabry111-letterreel' ), photos.length ), initialOpen: true },
+					el( 'p', null, __( 'The letters take turns using these photos, in this order. Bright photos with the subject near the middle work best.', 'jmabry111-letterreel' ) ),
 					el(
 						be.MediaUploadCheck,
 						null,
@@ -311,7 +311,7 @@
 								return p.id;
 							} ),
 							render: function ( o ) {
-								return el( c.Button, { variant: 'primary', onClick: o.open }, photos.length ? __( 'Change photos', 'typemotion' ) : __( 'Choose photos', 'typemotion' ) );
+								return el( c.Button, { variant: 'primary', onClick: o.open }, photos.length ? __( 'Change photos', 'jmabry111-letterreel' ) : __( 'Choose photos', 'jmabry111-letterreel' ) );
 							},
 						} )
 					),
@@ -319,16 +319,16 @@
 				),
 				el(
 					c.PanelBody,
-					{ title: __( 'Appearance', 'typemotion' ), initialOpen: false },
+					{ title: __( 'Appearance', 'jmabry111-letterreel' ), initialOpen: false },
 					el( c.SelectControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Font', 'typemotion' ),
+						label: __( 'Font', 'jmabry111-letterreel' ),
 						value: a.fontSource,
 						options: [
-							{ label: __( 'Alfa Slab One (bundled, heavy)', 'typemotion' ), value: 'bundled' },
-							{ label: __( "Theme's heading font", 'typemotion' ), value: 'theme' },
+							{ label: __( 'Alfa Slab One (bundled, heavy)', 'jmabry111-letterreel' ), value: 'bundled' },
+							{ label: __( "Theme's heading font", 'jmabry111-letterreel' ), value: 'theme' },
 						],
-						help: __( 'Heavy fonts show more of each photo.', 'typemotion' ),
+						help: __( 'Heavy fonts show more of each photo.', 'jmabry111-letterreel' ),
 						onChange: function ( v ) {
 							set( { fontSource: v } );
 						},
@@ -336,19 +336,19 @@
 					el( 'div', { style: { height: 16 } } ),
 					el( c.RangeControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Largest size (px)', 'typemotion' ),
+						label: __( 'Largest size (px)', 'jmabry111-letterreel' ),
 						value: a.maxSize,
 						min: 32,
 						max: 400,
-						help: __( 'The word shrinks below this to fit narrow screens.', 'typemotion' ),
+						help: __( 'The word shrinks below this to fit narrow screens.', 'jmabry111-letterreel' ),
 						onChange: function ( v ) {
 							set( { maxSize: v || 208 } );
 						},
 					} ),
 					el( c.ToggleControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Outline the letters', 'typemotion' ),
-						help: __( 'Uses the block text colour (Styles tab).', 'typemotion' ),
+						label: __( 'Outline the letters', 'jmabry111-letterreel' ),
+						help: __( 'Uses the block text colour (Styles tab).', 'jmabry111-letterreel' ),
 						checked: !! a.outline,
 						onChange: function ( v ) {
 							set( { outline: v } );
@@ -357,7 +357,7 @@
 					a.outline
 						? el( c.RangeControl, {
 								__nextHasNoMarginBottom: true,
-								label: __( 'Outline width (px)', 'typemotion' ),
+								label: __( 'Outline width (px)', 'jmabry111-letterreel' ),
 								value: a.outlineWidth,
 								min: 0.5,
 								max: 6,
@@ -369,8 +369,8 @@
 						: null,
 					el( c.ToggleControl, {
 						__nextHasNoMarginBottom: true,
-						label: __( 'Animate', 'typemotion' ),
-						help: __( 'Letters rise in, then the photos drift slowly. Always off for visitors who ask their device for reduced motion.', 'typemotion' ),
+						label: __( 'Animate', 'jmabry111-letterreel' ),
+						help: __( 'Letters rise in, then the photos drift slowly. Always off for visitors who ask their device for reduced motion.', 'jmabry111-letterreel' ),
 						checked: !! a.animate,
 						onChange: function ( v ) {
 							set( { animate: v } );
@@ -378,9 +378,9 @@
 					} ),
 					el( c.BaseControl, {
 						__nextHasNoMarginBottom: true,
-						id: 'typemotion-backdrop',
-						label: __( 'Colour behind the photos', 'typemotion' ),
-						help: __( 'Shows only where a photo does not cover a letter, but accessibility checkers compare the text colour with it. Pick a colour that contrasts with the text colour.', 'typemotion' ),
+						id: 'letterreel-backdrop',
+						label: __( 'Colour behind the photos', 'jmabry111-letterreel' ),
+						help: __( 'Shows only where a photo does not cover a letter, but accessibility checkers compare the text colour with it. Pick a colour that contrasts with the text colour.', 'jmabry111-letterreel' ),
 					},
 						el( c.ColorPalette, {
 							colors: palette,
